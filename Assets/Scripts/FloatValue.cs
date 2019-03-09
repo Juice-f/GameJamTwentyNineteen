@@ -12,7 +12,8 @@ public class FloatValue : ScriptableObject
 
 [System.Serializable]
 public class Thingyboyo
-{[SerializeField]
+{
+    [SerializeField]
     public float aFloat;
 }
 

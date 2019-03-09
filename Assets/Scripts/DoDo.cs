@@ -5,6 +5,8 @@ public class DoDo : CharacterController
 
     Rigidbody2D rb;
 
+
+
     [SerializeField]
     LayerMask groundedLayers;
     [SerializeField]
@@ -102,9 +104,11 @@ public class DoDo : CharacterController
 
     public virtual void FixedUpdate()
     {
-
-        HorizontalMovement(joy1X);
-        if (Input.GetButton(jumpButtonSrc)) JumpAction();
+        if (!isSlapStunned)
+        {
+            HorizontalMovement(joy1X);
+            if (Input.GetButton(jumpButtonSrc)) JumpAction();
+        }
 
 
 
@@ -113,7 +117,7 @@ public class DoDo : CharacterController
     protected override void Update()
     {
         base.Update();
-        if (Input.GetButtonUp(jumpButtonSrc))
+        if (Input.GetButtonUp(jumpButtonSrc) && !isSlapStunned)
         {
             EndJump();
         }
@@ -173,6 +177,23 @@ public class DoDo : CharacterController
 
 
         else { rb.velocity = new Vector2(rb.velocity.x * currentXSlowDown, rb.velocity.y); }
+    }
+
+    private void OnMouseDown()
+    {
+        Slap(new Slapdata(10, 10, 10), null);
+    }
+
+
+    public override void Slap(Slapdata slapdata, GameObject slapOrigin)
+    {
+        base.Slap(slapdata, slapOrigin);
+        Vector3 slapOriginPosition = (slapOrigin != null) ? slapOrigin.transform.position : transform.position -= new Vector3(0, -1, 0);
+        Vector3 slapDir = (slapOriginPosition - transform.position).normalized;
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(0,50));
+
+
+
     }
 
 #if UNITY_EDITOR

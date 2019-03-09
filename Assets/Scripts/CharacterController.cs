@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class CharacterController : MonoBehaviour, ISlappable
 {
-    public UnityEvent OnSlap;
-
+    public UnityEvent OnSlapped;
+    public bool isSlapStunned = false;
     public enum Player { one, two, three, four }
     public float damageTaken = 0;
     [SerializeField]
@@ -34,10 +34,29 @@ public class CharacterController : MonoBehaviour, ISlappable
         }
     }
 
-    public virtual void Slap(float slapForce, float damage, GameObject slapOrigin)
+
+
+
+    public virtual void Slap(Slapdata slapdata, GameObject slapOrigin)
     {
-        Debug.Log("I was slapped");
-        OnSlap.Invoke();
+        damageTaken += slapdata.damage;
+        StopCoroutine(SlapStun(0));
+        StartCoroutine(SlapStun(slapdata.stunTime));
+        OnSlapped.Invoke();
     }
 
+    IEnumerator SlapStun(float time)
+    {
+        Debug.Log(name + " was slapped");
+        isSlapStunned = true;
+        Debug.Log(isSlapStunned);
+        yield return new WaitForSeconds(time);
+ 
+        isSlapStunned = false;
+        Debug.Log(isSlapStunned);
+
+    }
+
+
 }
+
