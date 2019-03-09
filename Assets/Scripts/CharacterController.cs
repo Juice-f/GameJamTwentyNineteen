@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour, ISlappable
     public UnityEvent OnSlap;
 
     public enum Player { one, two, three, four }
-
+    public float damageTaken = 0;
     [SerializeField]
     Player controlledByPlayer = Player.one;
 
