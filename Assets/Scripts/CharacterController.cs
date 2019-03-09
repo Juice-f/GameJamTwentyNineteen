@@ -34,7 +34,7 @@ public class CharacterController : MonoBehaviour, ISlappable
         }
     }
 
-    public virtual void Slap(float slapForce, GameObject slapOrigin)
+    public virtual void Slap(float slapForce, float damage, GameObject slapOrigin)
     {
         Debug.Log("I was slapped");
         OnSlap.Invoke();

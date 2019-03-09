@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ISlappable
 {
-    void Slap(float slapForce, GameObject slapOrigin);
+    void Slap(float slapForce, float damage, GameObject slapOrigin);
 }
