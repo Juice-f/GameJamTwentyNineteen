@@ -16,7 +16,8 @@ public class PlayerSpawner : MonoBehaviour {
     public GameObject[] chosenCharacter = new GameObject[4];
     public GameObject SelectedCharacter { set => chosenCharacter[value.GetComponent<PlayerCursorController> ().currentPlayer] = value.GetComponent<PlayerCursorController> ().selectedPrefab; }
 
-    public void LoadedStage () {
+    public void LoadingStage () {
+        SceneManager.LoadScene (1);
         List<GameObject> spawners = new List<GameObject> (GameObject.FindGameObjectsWithTag ("Spawner"));
         for (int i = 0; i < chosenCharacter.Length; i++) {
             if (chosenCharacter[i] != null) {

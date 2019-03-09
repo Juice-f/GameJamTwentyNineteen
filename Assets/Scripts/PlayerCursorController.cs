@@ -36,7 +36,7 @@ public class PlayerCursorController : MonoBehaviour {
                 return;
             }
             if (Physics2D.Raycast (transform.position, transform.forward, 2).collider.CompareTag ("Button")) {
-                PlayerSpawner.ins.SelectedCharacter = Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<CharacterHolder> ().characterToSelect;
+                PlayerSpawner.ins.SelectedCharacter = Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<CharacterHolder> ().GetCharacterHolder;
                 Debug.Log ("Character Selected!");
             }
         }

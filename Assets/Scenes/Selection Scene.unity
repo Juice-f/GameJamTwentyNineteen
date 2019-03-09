@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 296604461}
   - component: {fileID: 296604463}
   - component: {fileID: 296604462}
+  - component: {fileID: 296604464}
   m_Layer: 0
   m_Name: PlayerButton (5)
   m_TagString: Button
@@ -218,6 +219,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &296604464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296604460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b4406d69008f24882947937c25adab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHolder: {fileID: 0}
 --- !u!1 &411977951
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 784177850}
+  - component: {fileID: 784177851}
   m_Layer: 0
   m_Name: Buttons
   m_TagString: Untagged
@@ -410,6 +425,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &784177851
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784177849}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1045219762
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +530,7 @@ GameObject:
   - component: {fileID: 1122802913}
   - component: {fileID: 1122802915}
   - component: {fileID: 1122802914}
+  - component: {fileID: 1122802916}
   m_Layer: 0
   m_Name: PlayerButton (3)
   m_TagString: Button
@@ -595,6 +626,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1122802916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122802912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b4406d69008f24882947937c25adab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHolder: {fileID: 0}
 --- !u!1 &1133116938
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +808,7 @@ GameObject:
   - component: {fileID: 1357326196}
   - component: {fileID: 1357326198}
   - component: {fileID: 1357326197}
+  - component: {fileID: 1357326199}
   m_Layer: 0
   m_Name: PlayerButton (2)
   m_TagString: Button
@@ -859,6 +904,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1357326199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357326195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b4406d69008f24882947937c25adab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHolder: {fileID: 0}
 --- !u!1 &1441545093
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,6 +1010,7 @@ GameObject:
   - component: {fileID: 1600848639}
   - component: {fileID: 1600848641}
   - component: {fileID: 1600848640}
+  - component: {fileID: 1600848642}
   m_Layer: 0
   m_Name: PlayerButton (4)
   m_TagString: Button
@@ -1047,6 +1106,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1600848642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600848638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b4406d69008f24882947937c25adab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHolder: {fileID: 0}
 --- !u!1 &1918667593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1918667594}
+  - component: {fileID: 1918667595}
   m_Layer: 0
   m_Name: Cursors
   m_TagString: Untagged
@@ -1081,6 +1154,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1918667595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918667593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c71f11d8856f0499e745865fab8837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCursors: []
 --- !u!4 &2964147036901369780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2964147036901369780, guid: 71f6ec335f2b1084583654b7da2ebcd3,
