@@ -11,7 +11,7 @@ public class PlayerController : CharacterController {
     Rigidbody2D rb;
     [SerializeField] GroundVariables groundVariables;
     [SerializeField] SlapMechanics slapInfo;
-
+    [SerializeField] GameObject playerSprite;
     [System.Serializable] class GroundVariables {
         public Vector2 groundPoint;
         public Vector2 groundRadius;
@@ -22,8 +22,9 @@ public class PlayerController : CharacterController {
         public Slapdata normalSlap;
         public Slapdata heavySlap;
         public float midAirDashSpeed;
+        public Vector2 forwardLook;
 
-        public RaycastHit2D pontentialTargetToBeSpanked;
+        //public RaycastHit2D pontentialTargetToBeSpanked;
     }
     void Awake () {
         rb = GetComponent<Rigidbody2D> ();
@@ -34,7 +35,7 @@ public class PlayerController : CharacterController {
     }
 
     bool Jump () => Input.GetButton (jumpButtonSrc);
-    RaycastHit2D SlapRay () => Physics2D.Raycast (transform.position, transform.right, 1);
+    RaycastHit2D SlapRay () => Physics2D.Raycast (transform.position, slapInfo.forwardLook, 1);
     private void FixedUpdate () {
         Movement ();
     }
@@ -54,7 +55,12 @@ public class PlayerController : CharacterController {
     }
     void Movement () {
         Vector2 direction = new Vector3 (joy1X, 0);
+        if (joy1X != 0) {
+            slapInfo.forwardLook = (joy1X < 0) ? -transform.right : transform.right;
+        }
+        SpriteHandler.OnDirectionFlip (playerSprite.transform, joy1X);
         rb.velocity = (direction.normalized * xAxisMovementSpeed) + new Vector2 (0, rb.velocity.y);
+
         if (Jump () && GroundCheck ()) {
             //Debug.Log ("jumpbuttom");
             rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
@@ -79,7 +85,7 @@ public class PlayerController : CharacterController {
 
     void GizmoDrawHitBox () {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay (transform.position, transform.right);
+        Gizmos.DrawRay (transform.position, slapInfo.forwardLook);
     }
 
     private void OnDrawGizmosSelected () {
