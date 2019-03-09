@@ -26,7 +26,7 @@ public class PlayerController : CharacterController {
         Movement ();
     }
 
-    bool GroundCheck () => Physics2D.OverlapCircle (groundVariables.groundPoint, groundVariables.groundRadius, groundVariables.groundMask);
+    bool GroundCheck () => Physics2D.OverlapCircle (new Vector2 (transform.position.x, transform.position.y) + groundVariables.groundPoint, groundVariables.groundRadius, groundVariables.groundMask);
     void Movement () {
         Vector2 direction = new Vector3 (joy1X, 0);
         rb.velocity = (direction.normalized * xAxisMovementSpeed) + new Vector2 (0, rb.velocity.y);
@@ -34,8 +34,17 @@ public class PlayerController : CharacterController {
         if (!joystickJump && !GroundCheck ()) {
             return;
         }
-        if (joy1Y > 0) {
-            rb.velocity = new Vector2 (rb.velocity.x, joy1Y) * jumpForce;
+        if (joy1Y < 0) {
+            rb.velocity = new Vector2 (rb.velocity.x, -joy1Y * jumpForce);
         }
+    }
+
+    void GizmoDraw () {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere (new Vector2 (transform.position.x, transform.position.y) + groundVariables.groundPoint, groundVariables.groundRadius);
+    }
+
+    private void OnDrawGizmosSelected () {
+        GizmoDraw ();
     }
 }
