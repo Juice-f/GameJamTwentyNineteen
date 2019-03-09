@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public class PlayerController : CharacterController {
         public Slapdata heavySlap;
         public float midAirDashSpeed;
         public Vector2 forwardLook;
+        public float horizontalForwardLookDistance;
+        public Transform raycastPos;
 
         //public RaycastHit2D pontentialTargetToBeSpanked;
     }
@@ -31,11 +34,21 @@ public class PlayerController : CharacterController {
     }
     protected override void Update () {
         base.Update ();
+        if (Input.GetButtonDown (smolSlapButtonSrc)) {
+            OnNormalAttack ();
+        }
+        if (Input.GetButtonDown (bigSlapButtonSrc)) {
+            OnHeavyAttack ();
+        }
 
     }
 
     bool Jump () => Input.GetButton (jumpButtonSrc);
-    RaycastHit2D SlapRay () => Physics2D.Raycast (transform.position, slapInfo.forwardLook, 1);
+
+    private GameObject GetSlapRay () {
+        return (!Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f)) ? GameObject.Find ("Dud") : Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f).collider.gameObject;
+    }
+
     private void FixedUpdate () {
         Movement ();
     }
@@ -46,12 +59,28 @@ public class PlayerController : CharacterController {
     }
 
     bool GroundCheck () => Physics2D.OverlapBox (new Vector2 (transform.position.x, transform.position.y) + groundVariables.groundPoint, groundVariables.groundRadius, 0, groundVariables.groundMask);
-
-    void OnNormalAttack () {
-        if (SlapRay ().collider.GetComponent<ISlappable> () == null) {
+    void OnHeavyAttack () {
+        if (GetSlapRay () == null || GetSlapRay ().GetComponent<ISlappable> () == null) {
             return;
         }
-        Debug.Log ("Slapped someone!" + SlapRay ().collider.name);
+        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("GottaGoFast")) {
+            GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.heavySlap, this.gameObject);
+            Debug.Log ("Spanked someone!" + GetSlapRay ().transform.name);
+        } else {
+            return;
+        }
+    }
+    void OnNormalAttack () {
+        if (GetSlapRay () == null || GetSlapRay ().GetComponent<ISlappable> () == null) {
+            return;
+        }
+        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("GottaGoFast")) {
+            GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.normalSlap, this.gameObject);
+            Debug.Log ("Slapped someone!" + GetSlapRay ().transform.name);
+        } else {
+            return;
+        }
+
     }
     void Movement () {
         Vector2 direction = new Vector3 (joy1X, 0);
@@ -85,7 +114,7 @@ public class PlayerController : CharacterController {
 
     void GizmoDrawHitBox () {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay (transform.position, slapInfo.forwardLook);
+        Gizmos.DrawRay (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook * 0.5f);
     }
 
     private void OnDrawGizmosSelected () {
