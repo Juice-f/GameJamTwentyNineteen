@@ -110,15 +110,15 @@ public class DoDo : CharacterController
 
     }
 
-    override void Update()
+    protected override void Update()
     {
+        base.Update();
         if (Input.GetButtonUp(jumpInput))
         {
             EndJump();
         }
 
-        joy1X = Input.GetAxisRaw(xAxisInputSrc);
-        joy1Y = Input.GetAxisRaw(yAxisInputSrc);
+
     }
 
     public virtual void Start()
