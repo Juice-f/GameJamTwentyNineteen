@@ -21,7 +21,10 @@ public class CharacterController : MonoBehaviour, ISlappable
 
     public string joy1XInputSrc, joy1YInputSrc, jumpButtonSrc, bigSlapButtonSrc, smolSlapButtonSrc, gimmickButtonSrc;
 
-
+    public virtual void Update()
+    {
+        UpdateAxi();
+    }
     public Player ControlledByPlayer
     {
         get => controlledByPlayer;
