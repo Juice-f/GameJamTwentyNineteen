@@ -37,8 +37,24 @@ public class DoDo : CharacterController
     bool jumped = true;
 
 
+    [SerializeField]
+    DoDoHitBox smalSlapBox, bigSlapBox;
+    [SerializeField]
+    DoDoHitBox[] smalSlapModified;
 
 
+
+    bool HoldingModifier
+    {
+        get
+        {
+            if (Input.GetButton(gimmickButtonSrc))
+            {
+                return true;
+            }
+            else return false;
+        }
+    }
 
     bool TouchingLeft
     {
@@ -165,7 +181,7 @@ public class DoDo : CharacterController
 
     public virtual void HorizontalMovement(float input)
     {
-     //   Boy.Flip(transform, input);
+        //   Boy.Flip(transform, input);
         if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
         // Debug.Log(input);
         if (input != 0)
@@ -197,8 +213,8 @@ public class DoDo : CharacterController
 
     public override void Slap(Slapdata slapdata, GameObject slapOrigin)
     {
-          base.Slap(slapdata, slapOrigin);
-   //     isSlapStunned = true;
+        base.Slap(slapdata, slapOrigin);
+        //     isSlapStunned = true;
 
 
 
@@ -216,6 +232,18 @@ public class DoDo : CharacterController
             Gizmos.DrawWireCube(transform.position + new Vector3(wallCheckBoxLeftOffset, 0), new Vector3(wallCheckBoxLeft.x, wallCheckBoxLeft.y, 0));
             Gizmos.DrawWireCube(transform.position + new Vector3(wallCheckBoxRightOffset, 0), new Vector3(wallCheckBoxRight.x, wallCheckBoxRight.y, 0));
         }
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position + new Vector3(smalSlapBox.boxXOffset, smalSlapBox.boxYOffset), smalSlapBox.BoxDimensionsV3);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position + new Vector3(bigSlapBox.boxXOffset, bigSlapBox.boxYOffset), bigSlapBox.BoxDimensionsV3);
+        Gizmos.color = Color.cyan;
+        for (int i = 0; i < smalSlapModified.Length; i++)
+        {
+            Gizmos.DrawWireCube(transform.position + new Vector3(smalSlapModified[i].boxXOffset, smalSlapModified[i].boxYOffset), smalSlapModified[i].BoxDimensionsV3);
+        }
+
+
     }
 #endif
 
@@ -224,7 +252,13 @@ public class DoDo : CharacterController
 [System.Serializable]
 public class DoDoHitBox
 {
-    public string name;
-    public float boxXOffset;
-    public Vector2 boxDimensions = new Vector2();
+    // public string name;
+    [SerializeField]
+    [Range(0, 5)]
+    public float boxXOffset, boxYOffset;
+    // [Range(0,2)]
+    public Vector2 boxDimensions = new Vector2(1, 1);
+    public Vector3 BoxDimensionsV3 { get { return new Vector3(boxDimensions.x, boxDimensions.y, 0); } }
+
+
 }
