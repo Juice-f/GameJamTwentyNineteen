@@ -186,19 +186,15 @@ public class DoDo : CharacterController
 
     private void OnMouseDown()
     {
-        Slap(new Slapdata(1, 10, 10), null);
+        Slap(new Slapdata(100, 10, 10), slapSource);
     }
 
 
     public override void Slap(Slapdata slapdata, GameObject slapOrigin)
     {
           base.Slap(slapdata, slapOrigin);
-        isSlapStunned = true;
-        Vector2 slapOriginPosition = (slapOrigin != null) ? slapOrigin.transform.position : transform.position -= new Vector3(0, -1, 0);
-        Vector2 slapDir = (slapOriginPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
-        Debug.Log(slapDir);
-        Debug.DrawRay(transform.position, slapDir);
-        GetComponent<Rigidbody2D>().AddForce((slapdata.slapForce * (damageTaken / 100) * -slapDir), ForceMode2D.Impulse);
+   //     isSlapStunned = true;
+
 
 
 
