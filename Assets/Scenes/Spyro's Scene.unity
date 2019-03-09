@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 121341441}
   - component: {fileID: 121341442}
   - component: {fileID: 121341443}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TempPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 398124019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,8 @@ GameObject:
   - component: {fileID: 735660092}
   - component: {fileID: 735660091}
   - component: {fileID: 735660090}
-  m_Layer: 0
+  - component: {fileID: 735660094}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,18 +368,25 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  damageTaken: 0
   controlledByPlayer: 0
   joy1X: 0
   joy1Y: 0
-  joy1XInputSrc: Horizontal
-  joy1YInputSrc: 
-  jumpButtonSrc: 
-  bigSlapButtonSrc: 
-  smolSlapButtonSrc: 
-  gimmickButtonSrc: 
+  joy1XInputSrc: P1Horizontal
+  joy1YInputSrc: P1Vertical
+  jumpButtonSrc: P1JumpButton
+  bigSlapButtonSrc: P1BSlapButton
+  smolSlapButtonSrc: P1SSlapButton
+  gimmickButtonSrc: P1GimmickButton
   xAxisMovementSpeed: 10
-  jumpForce: 5
+  jumpForce: 15
   joystickJump: 0
+  groundVariables:
+    groundPoint: {x: 0, y: -0.5}
+    groundRadius: {x: 1, y: 0.5}
+    groundMask:
+      serializedVersion: 2
+      m_Bits: 512
 --- !u!50 &735660091
 Rigidbody2D:
   serializedVersion: 4
@@ -462,3 +470,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &735660094
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735660089}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
