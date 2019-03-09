@@ -18,8 +18,8 @@ public class DoDo : CharacterController
     float wallCheckBoxLeftOffset, wallCheckBoxRightOffset;
 
     float jumpTimeLeft;
-    [SerializeField]
-    string xAxisInputSrc = "Horizontal", yAxisInputSrc = "Vertical", jumpInput = "Jump", sprintInput = "Sprint";
+    //[SerializeField]
+    //string xAxisInputSrc = "Horizontal", yAxisInputSrc = "Vertical", jumpInput = "Jump", sprintInput = "Sprint";
     [Range(0, 1)]
     [SerializeField]
     float xSlowDown;
@@ -104,7 +104,7 @@ public class DoDo : CharacterController
     {
 
         HorizontalMovement(joy1X);
-        if (Input.GetButton(jumpInput)) JumpAction();
+        if (Input.GetButton(jumpButtonSrc)) JumpAction();
 
 
 
@@ -113,7 +113,7 @@ public class DoDo : CharacterController
     protected override void Update()
     {
         base.Update();
-        if (Input.GetButtonUp(jumpInput))
+        if (Input.GetButtonUp(jumpButtonSrc))
         {
             EndJump();
         }
@@ -152,7 +152,7 @@ public class DoDo : CharacterController
 
     public virtual void HorizontalMovement(float input)
     {
-        if (Input.GetAxis(sprintInput) > 0) { input *= sprintMultiplier; }
+        if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
         // Debug.Log(input);
         if (input != 0)
         {
