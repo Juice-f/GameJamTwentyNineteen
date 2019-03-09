@@ -43,6 +43,11 @@ public class CharacterController : MonoBehaviour, ISlappable
         StopCoroutine(SlapStun(0));
         StartCoroutine(SlapStun(slapdata.stunTime));
         OnSlapped.Invoke();
+        float slapForceWDamage = slapdata.slapForce * (damageTaken / 100);
+        Debug.Log(slapForceWDamage);
+        Vector2 direction = -((slapOrigin.transform.position - new Vector3(0,5,0)) - transform.position).normalized;
+        Debug.Log(direction);
+        GetComponent<Rigidbody2D>().AddForce(slapForceWDamage * direction, ForceMode2D.Impulse);
     }
 
     IEnumerator SlapStun(float time)
