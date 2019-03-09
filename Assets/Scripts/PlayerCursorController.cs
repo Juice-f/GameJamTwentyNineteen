@@ -17,6 +17,8 @@ public class PlayerCursorController : MonoBehaviour {
     void Awake () {
         sprite = GetComponent<SpriteRenderer> ();
     }
+
+    bool activate;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -29,15 +31,24 @@ public class PlayerCursorController : MonoBehaviour {
         viewPos.y = Mathf.Clamp (viewPos.y, heightRel, 1 - heightRel);
         this.transform.position = Camera.main.ViewportToWorldPoint (viewPos);
         transform.Translate (new Vector2 (Input.GetAxis (playerInput.xAxisInput), -Input.GetAxis (playerInput.yAxisInput)) * sensitivity);
+        if (Input.GetButtonDown (playerInput.selectButton)) {
+            activate = true;
+        } else {
+            activate = false;
+        }
     }
     void FixedUpdate () {
-        if (Input.GetButtonDown (playerInput.selectButton)) {
+        if (activate) {
             if (!Physics2D.Raycast (transform.position, transform.forward, 2)) {
                 return;
             }
             if (Physics2D.Raycast (transform.position, transform.forward, 2).collider.CompareTag ("Button")) {
-                PlayerSpawner.ins.SelectedCharacter = Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<CharacterHolder> ().GetCharacterHolder;
+                selectedPrefab = Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<CharacterHolder> ().GetCharacterHolder;
                 Debug.Log ("Character Selected!");
+            }
+            if (Physics2D.Raycast (transform.position, transform.forward, 2).collider.CompareTag ("UIButton")) {
+                Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<ButtonScript> ().ToNextMap ();
+                Debug.Log ("To the next map");
             }
         }
 

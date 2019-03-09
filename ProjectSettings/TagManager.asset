@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GottaGoFast
   - Button
+  - UIButton
   layers:
   - Default
   - TransparentFX
