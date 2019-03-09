@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour, ISlappable
     public UnityEvent OnSlapped;
     public bool isSlapStunned = false;
     public enum Player { one, two, three, four }
-    public float damageTaken = 0;
+    public float damageTaken = 100;
     [SerializeField]
     Player controlledByPlayer = Player.one;
 
@@ -34,7 +34,7 @@ public class CharacterController : MonoBehaviour, ISlappable
         }
     }
 
-
+ 
 
 
     public virtual void Slap(Slapdata slapdata, GameObject slapOrigin)

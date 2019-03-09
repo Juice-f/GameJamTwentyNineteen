@@ -5,7 +5,8 @@ public class DoDo : CharacterController
 
     Rigidbody2D rb;
 
-
+    [SerializeField]
+    GameObject slapSource;
 
     [SerializeField]
     LayerMask groundedLayers;
@@ -117,7 +118,7 @@ public class DoDo : CharacterController
     protected override void Update()
     {
         base.Update();
-        if (Input.GetButtonUp(jumpButtonSrc) && !isSlapStunned)
+        if (Input.GetButtonUp(jumpButtonSrc))
         {
             EndJump();
         }
@@ -137,10 +138,13 @@ public class DoDo : CharacterController
             jumpTimeLeft = jumpTime;
             //  Debug.Log("Beginning jump");
         }
+
         float vel = Mathf.Clamp((jumpTimeLeft / jumpTime) * jumpSpeed, 0, jumpSpeed);
+
         if (vel >= rb.velocity.y && vel > 0)
             rb.velocity = new Vector2(rb.velocity.x, vel);
         // Debug.Log(Mathf.Clamp(((jumpTimeLeft / jumpTime) * jumpForce), 0, jumpForce));
+
         jumpTimeLeft -= Time.deltaTime;
 
     }
@@ -148,7 +152,8 @@ public class DoDo : CharacterController
     {
         if (jumpTimeLeft > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2);
+            if (!isSlapStunned)
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2);
             jumpTimeLeft = 0;
         }
         //Debug.Log("LET GO OF JUMP");
@@ -181,16 +186,19 @@ public class DoDo : CharacterController
 
     private void OnMouseDown()
     {
-        Slap(new Slapdata(10, 10, 10), null);
+        Slap(new Slapdata(1, 10, 10), null);
     }
 
 
     public override void Slap(Slapdata slapdata, GameObject slapOrigin)
     {
-        base.Slap(slapdata, slapOrigin);
-        Vector3 slapOriginPosition = (slapOrigin != null) ? slapOrigin.transform.position : transform.position -= new Vector3(0, -1, 0);
-        Vector3 slapDir = (slapOriginPosition - transform.position).normalized;
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(0,50));
+          base.Slap(slapdata, slapOrigin);
+        isSlapStunned = true;
+        Vector2 slapOriginPosition = (slapOrigin != null) ? slapOrigin.transform.position : transform.position -= new Vector3(0, -1, 0);
+        Vector2 slapDir = (slapOriginPosition - new Vector2(transform.position.x, transform.position.y)).normalized;
+        Debug.Log(slapDir);
+        Debug.DrawRay(transform.position, slapDir);
+        GetComponent<Rigidbody2D>().AddForce((slapdata.slapForce * (damageTaken / 100) * -slapDir), ForceMode2D.Impulse);
 
 
 
