@@ -36,6 +36,10 @@ public class DoDo : CharacterController
     Vector2 groundCheckBoxSize;
     bool jumped = true;
 
+
+
+
+
     bool TouchingLeft
     {
         get
@@ -161,6 +165,7 @@ public class DoDo : CharacterController
 
     public virtual void HorizontalMovement(float input)
     {
+     //   Boy.Flip(transform, input);
         if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
         // Debug.Log(input);
         if (input != 0)
@@ -186,7 +191,7 @@ public class DoDo : CharacterController
 
     private void OnMouseDown()
     {
-        Slap(new Slapdata(100, 10, 10), slapSource);
+        Slap(new Slapdata(100, 10, 1), slapSource);
     }
 
 
@@ -214,4 +219,12 @@ public class DoDo : CharacterController
     }
 #endif
 
+}
+
+[System.Serializable]
+public class DoDoHitBox
+{
+    public string name;
+    public float boxXOffset;
+    public Vector2 boxDimensions = new Vector2();
 }

@@ -41,7 +41,7 @@ public class CharacterController : MonoBehaviour, ISlappable
     {
         damageTaken += slapdata.damage;
         StopCoroutine(SlapStun(0));
-        StartCoroutine(SlapStun(slapdata.stunTime));
+        StartCoroutine(SlapStun(slapdata.stunTime * damageTaken/ 100));
         OnSlapped.Invoke();
         float slapForceWDamage = slapdata.slapForce * (damageTaken / 100);
         Debug.Log(slapForceWDamage);
