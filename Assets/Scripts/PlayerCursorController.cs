@@ -59,6 +59,10 @@ public class PlayerCursorController : MonoBehaviour {
                 button.GetComponent<ButtonScript> ().ToNextMap ();
                 Debug.Log ("To the next map");
             }
+            if (button.CompareTag ("MapButton")) {
+                MapHolder selectedButton = button.GetComponent<MapHolder> ();
+                selectedButton.LoadMap ();
+            }
         }
 
     }

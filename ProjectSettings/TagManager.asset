@@ -7,7 +7,7 @@ TagManager:
   - GottaGoFast
   - Button
   - UIButton
-  - MapSelection
+  - MapButton
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,5 @@ public class ButtonScript : MonoBehaviour {
         //Do something.
         //OnClick.Invoke ();
         anim.Play ();
-        Debug.Log ("Do something");
     }
 }
