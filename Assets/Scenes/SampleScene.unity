@@ -506,5 +506,45 @@ PrefabInstance:
       propertyPath: slapSource
       value: 
       objectReference: {fileID: 516777633}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoStandoSlap.slapForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoStandoSlap.stunTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoStandoSlap.damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoSlapData.slapForce
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoSlapData.damage
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505993829216145660, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: handoSlapData.stunTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 112167077239043443, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112167077239043443, guid: 382a332bd34a63840aee470c0bb1b788,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 382a332bd34a63840aee470c0bb1b788, type: 3}

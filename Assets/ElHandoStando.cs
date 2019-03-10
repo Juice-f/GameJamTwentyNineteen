@@ -33,7 +33,7 @@ public class ElHandoStando : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<ISlappable>() != null)
+        if (collision.GetComponent<ISlappable>() != null && collision.gameObject != dad)
         {
             ISlappable slappable = collision.GetComponent<ISlappable>();
             if (!slappables.Contains(slappable))
