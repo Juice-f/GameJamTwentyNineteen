@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 public class DoDo : CharacterController
 {
 
@@ -8,7 +10,7 @@ public class DoDo : CharacterController
     [SerializeField]
     GameObject slapSource;
 
-    Animator animator { get => GetComponent<Animator>(); } 
+    Animator animator { get => GetComponent<Animator>(); }
 
     [SerializeField]
     LayerMask groundedLayers;
@@ -37,7 +39,12 @@ public class DoDo : CharacterController
     [SerializeField]
     Vector2 groundCheckBoxSize;
     bool jumped = true;
-
+    bool isAttacking = false;
+    bool IsAttacking
+    {
+        set { isAttacking = value; animator.SetBool("IsAttacking", value); }
+        get => isAttacking;
+    }
 
     [SerializeField]
     DoDoHitBox smalSlapBox, bigSlapBox;
@@ -133,7 +140,16 @@ public class DoDo : CharacterController
             if (Input.GetButton(jumpButtonSrc)) JumpAction();
         }
 
-
+        if (!IsGrounded && HoldingModifier)
+        {
+            rb.gravityScale = .4f;
+            currentXSlowDown = .9f;
+        }
+        else
+        {
+            rb.gravityScale = 0;
+            rb.gravityScale = 1;
+        }
 
     }
 
@@ -150,13 +166,40 @@ public class DoDo : CharacterController
             animator.SetInteger("MoveDirection", num);
             animator.SetBool("IsGrounded", true);
         }
-        else { animator.SetBool("IsGrounded", false);
+        else
+        {
+            animator.SetBool("IsGrounded", false);
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             int num = (rb.velocity.x < 0) ? -1 : (rb.velocity.x > 0) ? 1 : 0;
             animator.SetInteger("MoveDirection", num);
         }
 
+        if (Input.GetButtonDown(smolSlapButtonSrc))
+        {
+            if (!isSlapStunned)
+            {
+                StartCoroutine(SmallSlap());
+            }
+        }
+        
     }
+
+    IEnumerator SmallSlap()
+    {
+        if (HoldingModifier)
+        {
+            IsAttacking = true;
+            yield return new WaitForSeconds(1f);
+            IsAttacking = false;
+        }
+        else
+        {
+            IsAttacking = true;
+            yield return new WaitForSeconds(.5f);
+            IsAttacking = false;
+        }
+    }
+
 
     public virtual void Start()
     {
@@ -193,8 +236,9 @@ public class DoDo : CharacterController
 
     public virtual void HorizontalMovement(float input)
     {
+        if (IsAttacking) input = 0;
         //   Boy.Flip(transform, input);
-        if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
+       // if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
         // Debug.Log(input);
         if (input != 0)
         {
@@ -232,7 +276,7 @@ public class DoDo : CharacterController
 
 
     }
-
+    
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
