@@ -8,6 +8,7 @@ public class MapHolder : MonoBehaviour {
 
     // Start is called before the first frame update
     public void LoadMap () {
+        GameObject.FindObjectOfType<SetupStage> ().StartCoroutine ("LoadingStage");
         SceneManager.LoadScene (levelSceneIndex);
 
     }

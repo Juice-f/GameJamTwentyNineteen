@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Selection Scene.unity
     guid: 92720a5668ac42b4097413276c1a7260
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Spyro's Scene.unity
     guid: 614800c79f1ddbd4898bcfdb6c34b0fb
+  - enabled: 1
+    path: Assets/Scenes/TestingLevel.unity
+    guid: 9fd93225a57cc9a4784edb09b1cb6d59
   m_configObjects: {}

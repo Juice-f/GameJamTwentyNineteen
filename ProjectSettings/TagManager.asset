@@ -8,6 +8,7 @@ TagManager:
   - Button
   - UIButton
   - MapButton
+  - Spawner
   layers:
   - Default
   - TransparentFX

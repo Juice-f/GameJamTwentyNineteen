@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterHolder : MonoBehaviour {
-    [SerializeField] GameObject characterHolder;
+
+    [SerializeField] GameObject characterPrefab;
+    public PlayerCursorController cursor;
     SpriteRenderer currentSprite;
     bool toggle;
     Color defaultColor;
@@ -12,18 +14,22 @@ public class CharacterHolder : MonoBehaviour {
     public Color CurrentColorOnButton {
         get => currentSprite.color;
     }
+    public GameObject GetCharacterReference => characterPrefab;
     void Awake () {
         currentSprite = GetComponent<SpriteRenderer> ();
         defaultColor = currentSprite.color;
-    }
-    public GameObject GetCharacterHolder {
-        get {
-            return characterHolder;
-        }
     }
 
     public void ChangeColor () {
         toggle = !toggle;
         currentSprite.color = (toggle) ? onSelectColor : defaultColor;
+    }
+
+    public void OnButtonTrigger (PlayerCursorController origin) {
+        if (SetupStage.ins.GetList.Length != 0 && SetupStage.ins.GetList[origin.currentPlayer] == characterPrefab) {
+            SetupStage.ins.RemoveCharacterFromArr (origin);
+            return;
+        }
+        SetupStage.ins.SetAddCharacterToArr (characterPrefab, origin);
     }
 }

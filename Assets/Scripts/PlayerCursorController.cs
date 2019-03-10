@@ -8,7 +8,9 @@ public class PlayerCursorController : MonoBehaviour {
     SpriteRenderer sprite;
     [Range (0, 3)]
     public int currentPlayer;
-    public GameObject selectedPrefab;
+    GameObject selectedCharacterPrefab;
+    public GameObject SendInfo { set => selectedCharacterPrefab = value; }
+
     [System.Serializable] class PlayerInput {
         public string xAxisInput;
         public string yAxisInput;
@@ -48,10 +50,8 @@ public class PlayerCursorController : MonoBehaviour {
             GameObject button = Physics2D.Raycast (transform.position, transform.forward).collider.gameObject;
             if (button.CompareTag ("Button")) {
                 CharacterHolder selectedButton = button.GetComponent<CharacterHolder> ();
-                //selectedButton.onSelectColor = (selectedButton.onSelectColor != sprite.color) ? sprite.color : selectedButton.onSelectColor;
-                toggle = !toggle;
-                selectedPrefab = (toggle) ? selectedButton.GetCharacterHolder : null;
-
+                selectedButton.cursor = this;
+                selectedButton.OnButtonTrigger (this);
                 selectedButton.ChangeColor ();
                 Debug.Log ("Character Selected!");
             }
