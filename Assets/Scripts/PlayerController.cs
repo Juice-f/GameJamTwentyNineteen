@@ -46,7 +46,7 @@ public class PlayerController : CharacterController {
     bool Jump () => Input.GetButton (jumpButtonSrc);
 
     private GameObject GetSlapRay () {
-        return (!Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f)) ? GameObject.Find ("Dud") : Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f).collider.gameObject;
+        return (!Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f)) ? GameObject.Find ("SetupStage Caller") : Physics2D.Raycast (new Vector2 ((slapInfo.raycastPos.position.x + slapInfo.horizontalForwardLookDistance), slapInfo.raycastPos.position.y), slapInfo.forwardLook, 0.5f).collider.gameObject;
     }
 
     private void FixedUpdate () {
@@ -63,7 +63,7 @@ public class PlayerController : CharacterController {
         if (GetSlapRay () == null || GetSlapRay ().GetComponent<ISlappable> () == null) {
             return;
         }
-        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("GottaGoFast")) {
+        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("Player")) {
             GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.heavySlap, this.gameObject);
             Debug.Log ("Spanked someone!" + GetSlapRay ().transform.name);
         } else {
