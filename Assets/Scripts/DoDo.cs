@@ -51,7 +51,25 @@ public class DoDo : CharacterController
     [SerializeField]
     DoDoHitBox[] smalSlapModified;
 
+    [SerializeField]
+    GameObject fistDownSpawn;
+    [SerializeField]
+    ElHando handObject;
+    [SerializeField]
+    float handoMoveSpd;
+    [SerializeField]
+    Slapdata handoSlapData = new Slapdata(0, 0, 0);
 
+
+
+    [SerializeField]
+    ElHandoStando handoStando;
+    [SerializeField]
+    GameObject handoStandoSpawn;
+    [SerializeField]
+    Slapdata handoStandoSlap;
+    [SerializeField]
+    float handoStandoLifeTime, handoStandoMoveSpeed, reslap;
 
     bool HoldingModifier
     {
@@ -108,7 +126,7 @@ public class DoDo : CharacterController
         get
         {
             Collider2D[] collider2Ds =
-            Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y + groundCheckOffset), groundCheckBoxSize, 0);
+            Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y + groundCheckOffset), groundCheckBoxSize, 0,    groundedLayers);
 
             for (int i = 0; i < collider2Ds.Length; i++)
             {
@@ -140,16 +158,8 @@ public class DoDo : CharacterController
             if (Input.GetButton(jumpButtonSrc)) JumpAction();
         }
 
-        if (!IsGrounded && HoldingModifier)
-        {
-            rb.gravityScale = .4f;
-            currentXSlowDown = .9f;
-        }
-        else
-        {
-            rb.gravityScale = 0;
-            rb.gravityScale = 1;
-        }
+
+
 
     }
 
@@ -162,6 +172,7 @@ public class DoDo : CharacterController
         }
         if (IsGrounded)
         {
+         //   Debug.Log("heck");
             int num = (joy1X < 0) ? -1 : (joy1X > 0) ? 1 : 0;
             animator.SetInteger("MoveDirection", num);
             animator.SetBool("IsGrounded", true);
@@ -177,31 +188,42 @@ public class DoDo : CharacterController
 
         if (Input.GetButtonDown(smolSlapButtonSrc))
         {
-            if (!isSlapStunned && ! IsAttacking)
+            if (!isSlapStunned && !IsAttacking)
             {
                 StartCoroutine(SmallSlap());
             }
         }
-        
-    }
+        if (Input.GetButtonDown(bigSlapButtonSrc))
+        {
+            if (!isSlapStunned && !IsAttacking)
+            { StartCoroutine(BigSlap()); }
+        }
 
+    }
     IEnumerator SmallSlap()
     {
-        if (HoldingModifier)
-        {
-            IsAttacking = true;
+        IsAttacking = true;
+        ElHandoStando stand = Instantiate(handoStando);
+        stand.transform.position = handoStandoSpawn.transform.position;
+        float movSpd = (HoldingModifier) ? movSpd = handoStandoMoveSpeed : 0;
+        stand.StartSlappin(handoStandoLifeTime, handoStandoSlap, gameObject, reslap, movSpd);
+        yield return new WaitForSeconds(.4f);
+        IsAttacking = false;
+    }
+    IEnumerator BigSlap()
+    {
 
-            yield return new WaitForSeconds(1f);
-            IsAttacking = false;
-        }
-        else
-        {
-            IsAttacking = true;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
-            
-            yield return new WaitForSeconds(.5f);
-            IsAttacking = false;
-        }
+        IsAttacking = true;
+        ElHando elHando = Instantiate(handObject);
+        elHando.transform.position = fistDownSpawn.transform.position;
+        elHando.moveDir = (!HoldingModifier) ? new Vector2(0, -1) : new Vector2(1, -1);
+        elHando.moveSpeed = handoMoveSpd;
+        elHando.IgnoreThisOne = gameObject;
+        elHando.slapdata = handoSlapData;
+        yield return new WaitForSeconds(.8f);
+        IsAttacking = false;
+
+
     }
 
 
@@ -242,7 +264,7 @@ public class DoDo : CharacterController
     {
         if (IsAttacking) input = 0;
         //   Boy.Flip(transform, input);
-       // if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
+        // if (Input.GetAxis(gimmickButtonSrc) > 0) { input *= sprintMultiplier; }
         // Debug.Log(input);
         if (input != 0)
         {
@@ -280,7 +302,7 @@ public class DoDo : CharacterController
 
 
     }
-    
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
@@ -302,7 +324,7 @@ public class DoDo : CharacterController
         {
             Gizmos.DrawWireCube(transform.position + new Vector3(smalSlapModified[i].boxXOffset, smalSlapModified[i].boxYOffset), smalSlapModified[i].BoxDimensionsV3);
         }
-
+        
 
     }
 #endif
