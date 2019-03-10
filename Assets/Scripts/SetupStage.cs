@@ -10,6 +10,7 @@ public class SetupStage : MonoBehaviour {
     }
 
     [SerializeField] UIElements elements;
+    public GameObject SetUIButton { set => elements.uiButton = value; get => elements.uiButton; }
 
     public void SetAddCharacterToArr (GameObject value, PlayerCursorController cursor) {
         if (listOfSelectedPlayers.Length < 1) {
@@ -23,6 +24,11 @@ public class SetupStage : MonoBehaviour {
         Debug.Log ("Removing Character From List");
     }
     public GameObject[] GetList => listOfSelectedPlayers;
+    public void ClearList () {
+        for (int i = 0; i < listOfSelectedPlayers.Length; i++) {
+            listOfSelectedPlayers[i] = null;
+        }
+    }
     void Update () {
         if (elements.uiButton) {
             elements.uiButton.SetActive (HaveAllPlayersPickedACharacter);
@@ -56,7 +62,7 @@ public class SetupStage : MonoBehaviour {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Spawner");
         if (spawnPoints.Length != 0) {
             for (int i = 0; i < listOfSelectedPlayers.Length; i++) {
-                int rng = Random.Range (0, spawnPoints.Length - 1);
+                int rng = Random.Range (0, spawnPoints.Length);
                 CharacterController newPlayer = Instantiate (listOfSelectedPlayers[i].GetComponent<CharacterController> (), spawnPoints[rng].transform.position, Quaternion.identity);
                 Debug.Log ("Spawned " + newPlayer.name + " for " + (CharacterController.Player) i + "! ");
                 newPlayer.ControlledByPlayer = (CharacterController.Player) i;

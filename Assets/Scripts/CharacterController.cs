@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour, ISlappable {
     public UnityEvent OnSlapped;
     public bool isSlapStunned = false;
     public enum Player { one, two, three, four }
     public float damageTaken = 100;
+    public int stocks = 3;
     [SerializeField]
     Player controlledByPlayer = Player.one;
 
     public float joy1X, joy1Y;
     private void Start () {
+        canMove = true;
         Debug.Log ("Start Called");
         switch (controlledByPlayer) {
             case Player.one:
@@ -47,9 +50,10 @@ public class CharacterController : MonoBehaviour, ISlappable {
     }
 
     public string joy1XInputSrc, joy1YInputSrc, jumpButtonSrc, bigSlapButtonSrc, smolSlapButtonSrc, gimmickButtonSrc;
-
+    public bool canMove = true;
     protected virtual void Update () {
-        UpdateAxi ();
+        if (canMove)
+            UpdateAxi ();
     }
     public Player ControlledByPlayer {
         get => controlledByPlayer;
@@ -59,12 +63,13 @@ public class CharacterController : MonoBehaviour, ISlappable {
     }
 
     public virtual void Slap (Slapdata slapdata, GameObject slapOrigin) {
+        Debug.Log ("aaa " + slapOrigin.name);
         damageTaken += slapdata.damage;
         StopCoroutine (SlapStun (0));
         StartCoroutine (SlapStun (slapdata.stunTime * damageTaken / 100));
         OnSlapped.Invoke ();
         float slapForceWDamage = slapdata.slapForce * (damageTaken / 100);
-        Debug.Log (slapForceWDamage);
+        //        Debug.Log (slapForceWDamage);
         Vector2 direction = -((slapOrigin.transform.position - new Vector3 (0, 5, 0)) - transform.position).normalized;
         Debug.Log (direction);
         GetComponent<Rigidbody2D> ().AddForce (slapForceWDamage * direction, ForceMode2D.Impulse);
@@ -79,6 +84,41 @@ public class CharacterController : MonoBehaviour, ISlappable {
         isSlapStunned = false;
         Debug.Log (isSlapStunned);
 
+    }
+    private void OnTriggerEnter2D (Collider2D other) {
+        if (other.CompareTag ("Deathzone")) {
+            if (stocks == 0) {
+                //Have character not respawn
+
+                //Game! Remaining player won!
+                Debug.Log (GameObject.FindObjectsOfType<CharacterController> ().Length);
+                if (GameObject.FindObjectsOfType<CharacterController> ().Length == 2) {
+                    Debug.Log ("Game!");
+                    foreach (var item in SetupStage.ins.GetList) {
+                        GameObject.FindGameObjectWithTag ("VictoryMessage").GetComponent<TMPro.TMP_Text> ().enabled = true;
+                        canMove = false;
+                        //gameObject.SetActive (false);
+                        StartCoroutine ("ToTheSelectionScreen");
+                        return;
+                        //Enable victory screen
+                        //Wait one second.
+                        //Disable victory screen and load selectin scene.
+                    }
+                }
+                gameObject.SetActive (false);
+
+            }
+            int rng = Random.Range (0, GameObject.FindGameObjectsWithTag ("Respawners").Length);
+            transform.position = GameObject.FindGameObjectsWithTag ("Respawners") [rng].transform.position;
+            damageTaken = 100;
+            --stocks;
+        }
+    }
+
+    IEnumerator ToTheSelectionScreen () {
+        yield return new WaitForSeconds (3);
+        GameObject.FindGameObjectWithTag ("VictoryMessage").GetComponent<TMPro.TMP_Text> ().enabled = false;
+        SceneManager.LoadScene (0);
     }
 
 }

@@ -232,7 +232,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   isSlapStunned: 0
-  damageTaken: 0
+  damageTaken: 100
+  stocks: 3
   controlledByPlayer: 0
   joy1X: 0
   joy1Y: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   bigSlapButtonSrc: P1BSlapButton
   smolSlapButtonSrc: P1SSlapButton
   gimmickButtonSrc: P1GimmickButton
+  canMove: 1
   xAxisMovementSpeed: 10
   jumpForce: 15
   joystickJump: 0
@@ -255,7 +257,7 @@ MonoBehaviour:
     normalSlap:
       slapForce: 5
       damage: 30
-      stunTime: 0
+      stunTime: 1
     heavySlap:
       slapForce: 10
       damage: 90
