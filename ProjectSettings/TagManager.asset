@@ -9,6 +9,10 @@ TagManager:
   - UIButton
   - MapButton
   - Spawner
+  - Deathzone
+  - Respawners
+  - VictoryMessage
+  - HealthUI
   layers:
   - Default
   - TransparentFX

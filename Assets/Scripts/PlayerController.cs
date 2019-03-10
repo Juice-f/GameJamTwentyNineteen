@@ -63,7 +63,7 @@ public class PlayerController : CharacterController {
         if (GetSlapRay () == null || GetSlapRay ().GetComponent<ISlappable> () == null) {
             return;
         }
-        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("Player")) {
+        if (GetSlapRay ().GetComponent<ISlappable> () != null) {
             GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.heavySlap, this.gameObject);
             Debug.Log ("Spanked someone!" + GetSlapRay ().transform.name);
         } else {
@@ -74,8 +74,8 @@ public class PlayerController : CharacterController {
         if (GetSlapRay () == null || GetSlapRay ().GetComponent<ISlappable> () == null) {
             return;
         }
-        if (GetSlapRay ().GetComponent<ISlappable> () != null && !GetSlapRay ().transform.CompareTag ("GottaGoFast")) {
-            GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.normalSlap, this.gameObject);
+        if (GetSlapRay ().GetComponent<ISlappable> () != null) {
+            GetSlapRay ().GetComponent<ISlappable> ().Slap (slapInfo.normalSlap, gameObject);
             Debug.Log ("Slapped someone!" + GetSlapRay ().transform.name);
         } else {
             return;
@@ -85,10 +85,11 @@ public class PlayerController : CharacterController {
     void Movement () {
         Vector2 direction = new Vector3 (joy1X, 0);
         if (joy1X != 0) {
-            slapInfo.forwardLook = (joy1X < 0) ? -transform.right : transform.right;
+            slapInfo.forwardLook = transform.right;
         }
-        SpriteHandler.OnDirectionFlip (playerSprite.transform, joy1X);
-        rb.velocity = (direction.normalized * xAxisMovementSpeed) + new Vector2 (0, rb.velocity.y);
+        //SpriteHandler.OnDirectionFlip (playerSprite.transform, joy1X);
+        if (!isSlapStunned)
+            rb.velocity = (direction.normalized * xAxisMovementSpeed) + new Vector2 (0, rb.velocity.y);
 
         if (Jump () && GroundCheck ()) {
             //Debug.Log ("jumpbuttom");
@@ -103,7 +104,7 @@ public class PlayerController : CharacterController {
             rb.velocity = new Vector2 (rb.velocity.x, -joy1Y * jumpForce);
             return;
         }
-        Debug.Log (buttonJump);
+        //Debug.Log (buttonJump);
 
     }
 
