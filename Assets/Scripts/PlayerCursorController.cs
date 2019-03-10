@@ -23,6 +23,12 @@ public class PlayerCursorController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        LimitCursorToScreenSize ();
+        transform.Translate (new Vector2 (Input.GetAxis (playerInput.xAxisInput), -Input.GetAxis (playerInput.yAxisInput)) * sensitivity);
+        activate = (Input.GetButtonDown (playerInput.selectButton)) ? true : false;
+    }
+
+    private void LimitCursorToScreenSize () {
         float widthRel = sprite.sprite.texture.width / (Screen.width); //relative width
         float heightRel = sprite.sprite.texture.height / (Screen.height); //relative height
 
@@ -30,24 +36,25 @@ public class PlayerCursorController : MonoBehaviour {
         viewPos.x = Mathf.Clamp (viewPos.x, widthRel, 1 - widthRel);
         viewPos.y = Mathf.Clamp (viewPos.y, heightRel, 1 - heightRel);
         this.transform.position = Camera.main.ViewportToWorldPoint (viewPos);
-        transform.Translate (new Vector2 (Input.GetAxis (playerInput.xAxisInput), -Input.GetAxis (playerInput.yAxisInput)) * sensitivity);
-        if (Input.GetButtonDown (playerInput.selectButton)) {
-            activate = true;
-        } else {
-            activate = false;
-        }
     }
+
+    bool toggle;
     void FixedUpdate () {
         if (activate) {
-            if (!Physics2D.Raycast (transform.position, transform.forward, 2)) {
+            if (!Physics2D.Raycast (transform.position, transform.forward)) {
                 return;
             }
-            if (Physics2D.Raycast (transform.position, transform.forward, 2).collider.CompareTag ("Button")) {
-                selectedPrefab = Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<CharacterHolder> ().GetCharacterHolder;
+            GameObject button = Physics2D.Raycast (transform.position, transform.forward).collider.gameObject;
+            if (button.CompareTag ("Button")) {
+                CharacterHolder selectedButton = button.GetComponent<CharacterHolder> ();
+                //selectedButton.onSelectColor = (selectedButton.onSelectColor != sprite.color) ? sprite.color : selectedButton.onSelectColor;
+                toggle = !toggle;
+                selectedPrefab = (toggle) ? selectedButton.GetCharacterHolder : null;
+                selectedButton.ChangeColor ();
                 Debug.Log ("Character Selected!");
             }
-            if (Physics2D.Raycast (transform.position, transform.forward, 2).collider.CompareTag ("UIButton")) {
-                Physics2D.Raycast (transform.position, transform.forward, 2).collider.GetComponent<ButtonScript> ().ToNextMap ();
+            if (button.CompareTag ("UIButton")) {
+                button.GetComponent<ButtonScript> ().ToNextMap ();
                 Debug.Log ("To the next map");
             }
         }
