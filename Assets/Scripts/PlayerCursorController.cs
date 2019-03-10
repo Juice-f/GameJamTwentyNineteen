@@ -25,7 +25,7 @@ public class PlayerCursorController : MonoBehaviour {
     void Update () {
         LimitCursorToScreenSize ();
         transform.Translate (new Vector2 (Input.GetAxis (playerInput.xAxisInput), -Input.GetAxis (playerInput.yAxisInput)) * sensitivity);
-        activate = (Input.GetButtonDown (playerInput.selectButton)) ? true : false;
+
     }
 
     private void LimitCursorToScreenSize () {
@@ -40,6 +40,7 @@ public class PlayerCursorController : MonoBehaviour {
 
     bool toggle;
     void FixedUpdate () {
+        activate = (Input.GetButtonDown (playerInput.selectButton)) ? true : false;
         if (activate) {
             if (!Physics2D.Raycast (transform.position, transform.forward)) {
                 return;
@@ -50,6 +51,7 @@ public class PlayerCursorController : MonoBehaviour {
                 //selectedButton.onSelectColor = (selectedButton.onSelectColor != sprite.color) ? sprite.color : selectedButton.onSelectColor;
                 toggle = !toggle;
                 selectedPrefab = (toggle) ? selectedButton.GetCharacterHolder : null;
+
                 selectedButton.ChangeColor ();
                 Debug.Log ("Character Selected!");
             }

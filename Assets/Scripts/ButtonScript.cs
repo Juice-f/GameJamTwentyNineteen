@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class ButtonScript : MonoBehaviour {
     public Animation anim;
+    public Animation map;
     public void ToNextMap () {
         //Do something.
         //OnClick.Invoke ();

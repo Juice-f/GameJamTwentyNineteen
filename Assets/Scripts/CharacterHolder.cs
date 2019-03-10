@@ -9,6 +9,9 @@ public class CharacterHolder : MonoBehaviour {
     bool toggle;
     Color defaultColor;
     public Color onSelectColor = Color.white;
+    public Color CurrentColorOnButton {
+        get => currentSprite.color;
+    }
     void Awake () {
         currentSprite = GetComponent<SpriteRenderer> ();
         defaultColor = currentSprite.color;
