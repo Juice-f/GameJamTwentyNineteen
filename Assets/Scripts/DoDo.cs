@@ -8,6 +8,8 @@ public class DoDo : CharacterController
     [SerializeField]
     GameObject slapSource;
 
+    Animator animator { get => GetComponent<Animator>(); } 
+
     [SerializeField]
     LayerMask groundedLayers;
     [SerializeField]
@@ -142,7 +144,17 @@ public class DoDo : CharacterController
         {
             EndJump();
         }
-
+        if (IsGrounded)
+        {
+            int num = (joy1X < 0) ? -1 : (joy1X > 0) ? 1 : 0;
+            animator.SetInteger("MoveDirection", num);
+            animator.SetBool("IsGrounded", true);
+        }
+        else { animator.SetBool("IsGrounded", false);
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            int num = (rb.velocity.x < 0) ? -1 : (rb.velocity.x > 0) ? 1 : 0;
+            animator.SetInteger("MoveDirection", num);
+        }
 
     }
 
