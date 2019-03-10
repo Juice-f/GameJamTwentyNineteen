@@ -227,7 +227,7 @@ public class DoDo : CharacterController
     }
 
 
-    public virtual void Start()
+    public override void Start()
     {
         SetupComponents();
     }
