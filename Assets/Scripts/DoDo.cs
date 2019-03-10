@@ -170,13 +170,14 @@ public class DoDo : CharacterController
         {
             animator.SetBool("IsGrounded", false);
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            int num = (rb.velocity.x < 0) ? -1 : (rb.velocity.x > 0) ? 1 : 0;
+            int num = (joy1X < 0) ? -1 : (joy1X > 0) ? 1 : 0;
+            //int num = (rb.velocity.x < 0) ? -1 : (rb.velocity.x > 0) ? 1 : 0;
             animator.SetInteger("MoveDirection", num);
         }
 
         if (Input.GetButtonDown(smolSlapButtonSrc))
         {
-            if (!isSlapStunned)
+            if (!isSlapStunned && ! IsAttacking)
             {
                 StartCoroutine(SmallSlap());
             }
@@ -189,12 +190,15 @@ public class DoDo : CharacterController
         if (HoldingModifier)
         {
             IsAttacking = true;
+
             yield return new WaitForSeconds(1f);
             IsAttacking = false;
         }
         else
         {
             IsAttacking = true;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+            
             yield return new WaitForSeconds(.5f);
             IsAttacking = false;
         }
