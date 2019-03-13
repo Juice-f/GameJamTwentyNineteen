@@ -26,6 +26,12 @@ public class CharacterHolder : MonoBehaviour {
     }
 
     public void OnButtonTrigger (PlayerCursorController origin) {
+        for (int i = 0; i < SetupStage.ins.GetList.Length; i++)
+        {
+            if(SetupStage.ins.GetList[i] == null){
+                return;
+            }
+        }
         if (SetupStage.ins.GetList.Length != 0 && SetupStage.ins.GetList[origin.currentPlayer] == characterPrefab) {
             SetupStage.ins.RemoveCharacterFromArr (origin);
             return;

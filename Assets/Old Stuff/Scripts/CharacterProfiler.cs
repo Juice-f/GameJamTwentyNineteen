@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CharacterProfiler : MonoBehaviour {
     SpriteRenderer spriteRenderer;
-    CharacterController.Player playerID;
-    [SerializeField] PlayerCursorController currentPlayer;
-    [SerializeField] GameObject potrait;
+    [SerializeField]CharacterController.Player playerID;
+    public CharacterController.Player GetPotraitPlayerID => playerID;
+    [SerializeField] Sprite defaultPotrait;
 
     private void Awake () {
         spriteRenderer = GetComponent<SpriteRenderer> ();
+        spriteRenderer.sprite = defaultPotrait;
     }
 
     public void DisplayCharacter (Sprite character) {
-        potrait.GetComponent<SpriteRenderer> ().sprite = character;
+        spriteRenderer.sprite = character;
     }
 
 }

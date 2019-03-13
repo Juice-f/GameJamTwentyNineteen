@@ -53,7 +53,15 @@ public class PlayerCursorController : MonoBehaviour {
                 selectedButton.cursor = this;
                 selectedButton.OnButtonTrigger (this);
                 selectedButton.ChangeColor ();
-                Debug.Log ("Character Selected!");
+                CharacterProfiler[] profiles = GameObject.FindObjectsOfType<CharacterProfiler>();
+                for (int i = 0; i < profiles.Length; i++)
+                {
+                    if(profiles[i].GetPotraitPlayerID == (CharacterController.Player)currentPlayer){
+                        profiles[i].DisplayCharacter(SetupStage.ins.GetList[(currentPlayer > 0 && SetupStage.ins.GetList.Length <= 1) ? 0 : currentPlayer].GetComponent<SpriteRenderer>().sprite);
+                        break;
+                    }
+                }
+                //Debug.Log ("Character Selected!");
             }
             if (button.CompareTag ("UIButton")) {
                 button.GetComponent<ButtonScript> ().ToNextMap ();
