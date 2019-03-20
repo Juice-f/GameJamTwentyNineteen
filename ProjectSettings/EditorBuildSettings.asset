@@ -11,13 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Old Stuff/Scenes/Spyro's Scene.unity
     guid: 614800c79f1ddbd4898bcfdb6c34b0fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/Start Menu.unity
     guid: 058b0be1e903a5246ad418d952201346
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/Selection Scene.unity
     guid: 92720a5668ac42b4097413276c1a7260
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/TestingLevel.unity
     guid: 9fd93225a57cc9a4784edb09b1cb6d59
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/_Scenes/New Selection Screen.unity
+    guid: 116cf687818a212409a00e410163c28f
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: fe179c002b4bdf349b4f5c0570b29a47,
+      type: 2}

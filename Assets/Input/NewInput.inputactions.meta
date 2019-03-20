@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: e3b6fabb093298e46bf76be0fd4cf1cb
+guid: 33fdf4b4c2d745948bd36f90f1c8ff35
 ScriptedImporter:
   fileIDToRecycleName:
     11400000: <root>
-    11400002: Player/Shoot
-    11400004: Player/Movement
+    11400004: Test/Movement
   externalObjects: {}
   userData: 
   assetBundleName: 

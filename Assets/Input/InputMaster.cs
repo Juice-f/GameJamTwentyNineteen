@@ -18,17 +18,18 @@ public class InputMaster : InputActionAssetReference
     private bool m_Initialized;
     private void Initialize()
     {
-        // Player
-        m_Player = asset.GetActionMap("Player");
-        m_Player_Shoot = m_Player.GetAction("Shoot");
-        m_Player_Movement = m_Player.GetAction("Movement");
+        // Testing
+        m_Testing = asset.GetActionMap("Testing");
+        m_Testing_Movement = m_Testing.GetAction("Movement");
+        // WORk
+        m_WORk = asset.GetActionMap("WORk");
         m_Initialized = true;
     }
     private void Uninitialize()
     {
-        m_Player = null;
-        m_Player_Shoot = null;
-        m_Player_Movement = null;
+        m_Testing = null;
+        m_Testing_Movement = null;
+        m_WORk = null;
         m_Initialized = false;
     }
     public void SetAsset(InputActionAsset newAsset)
@@ -41,39 +42,48 @@ public class InputMaster : InputActionAssetReference
     {
         SetAsset(ScriptableObject.Instantiate(asset));
     }
-    // Player
-    private InputActionMap m_Player;
-    private InputAction m_Player_Shoot;
-    private InputAction m_Player_Movement;
-    public struct PlayerActions
+    // Testing
+    private InputActionMap m_Testing;
+    private InputAction m_Testing_Movement;
+    public struct TestingActions
     {
         private InputMaster m_Wrapper;
-        public PlayerActions(InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Shoot { get { return m_Wrapper.m_Player_Shoot; } }
-        public InputAction @Movement { get { return m_Wrapper.m_Player_Movement; } }
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public TestingActions(InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement { get { return m_Wrapper.m_Testing_Movement; } }
+        public InputActionMap Get() { return m_Wrapper.m_Testing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled { get { return Get().enabled; } }
         public InputActionMap Clone() { return Get().Clone(); }
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(TestingActions set) { return set.Get(); }
     }
-    public PlayerActions @Player
+    public TestingActions @Testing
     {
         get
         {
             if (!m_Initialized) Initialize();
-            return new PlayerActions(this);
+            return new TestingActions(this);
         }
     }
-    private int m_keyboardandmouseSchemeIndex = -1;
-    public InputControlScheme keyboardandmouseScheme
+    // WORk
+    private InputActionMap m_WORk;
+    public struct WORkActions
+    {
+        private InputMaster m_Wrapper;
+        public WORkActions(InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputActionMap Get() { return m_Wrapper.m_WORk; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled { get { return Get().enabled; } }
+        public InputActionMap Clone() { return Get().Clone(); }
+        public static implicit operator InputActionMap(WORkActions set) { return set.Get(); }
+    }
+    public WORkActions @WORk
     {
         get
-
         {
-            if (m_keyboardandmouseSchemeIndex == -1) m_keyboardandmouseSchemeIndex = asset.GetControlSchemeIndex("keyboard and mouse");
-            return asset.controlSchemes[m_keyboardandmouseSchemeIndex];
+            if (!m_Initialized) Initialize();
+            return new WORkActions(this);
         }
     }
     private int m_GamepadSchemeIndex = -1;
