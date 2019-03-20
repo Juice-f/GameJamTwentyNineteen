@@ -286,6 +286,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9ae87e85dbcb840ba19f35ffbae071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testing:
+    m_Name: Testing
+    m_ExpectedControlLayout: 
+    m_Id: 
+    m_Flags: 0
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Testing
+      m_Flags: 0
+  controls:
+    m_Asset: {fileID: 11400000, guid: 33fdf4b4c2d745948bd36f90f1c8ff35, type: 3}
   testSubject: {fileID: 878090205}
   subjectsSpeed: 20
   slowx10: 0
@@ -330,18 +347,7 @@ MonoBehaviour:
       Unity.InputSystem, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1239160512}
-        m_MethodName: GetInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Experimental.Input.Plugins.PlayerInput.PlayerInput+ActionEvent,
       Unity.InputSystem, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null
     m_ActionId: d9e2c1c7-ad1c-4bea-996d-5eddcbc3b439
@@ -350,7 +356,7 @@ MonoBehaviour:
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: '{b0dd6581-8742-4483-997d-8f60bccdd79f}'
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1588080526}
 --- !u!1 &1588080524
 GameObject:
   m_ObjectHideFlags: 0
