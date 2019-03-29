@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Old Stuff/Scenes/Spyro's Scene.unity
     guid: 614800c79f1ddbd4898bcfdb6c34b0fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/Start Menu.unity
     guid: 058b0be1e903a5246ad418d952201346
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/Selection Scene.unity
     guid: 92720a5668ac42b4097413276c1a7260
-  - enabled: 1
+  - enabled: 0
     path: Assets/Old Stuff/Scenes/TestingLevel.unity
     guid: 9fd93225a57cc9a4784edb09b1cb6d59
   m_configObjects:
